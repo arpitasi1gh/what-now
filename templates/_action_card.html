@@ -1,0 +1,26 @@
+<div class="action-card">
+  <p class="action-text">{{ action.action }}</p>
+  <p class="action-why">{{ action.why }}</p>
+
+  <div class="action-meta">
+    <span class="first-step">First step: {{ action.first_step }}</span>
+    <span class="timebox">{{ action.timebox_minutes }} min</span>
+  </div>
+
+  <p class="fallback">{{ action.fallback }}</p>
+
+  <div class="feedback-row">
+    <form hx-post="/feedback/{{ action_id }}" hx-target="closest .action-card" hx-swap="outerHTML">
+      <input type="hidden" name="outcome" value="done">
+      <button type="submit">Done</button>
+    </form>
+    <form hx-post="/feedback/{{ action_id }}" hx-target="closest .action-card" hx-swap="outerHTML">
+      <input type="hidden" name="outcome" value="skip">
+      <button type="submit">Skip</button>
+    </form>
+    <form hx-post="/feedback/{{ action_id }}" hx-target="closest .action-card" hx-swap="outerHTML">
+      <input type="hidden" name="outcome" value="blocked">
+      <button type="submit">Blocked</button>
+    </form>
+  </div>
+</div>

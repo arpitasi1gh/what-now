@@ -1,0 +1,24 @@
+<div id="task-list">
+  {% if tasks %}
+    <ul class="task-items">
+      {% for task in tasks %}
+        <li>
+          <div class="task-info">
+            <span class="task-title">{{ task.title }}</span>
+            <span class="task-meta">
+              {% if task.deadline %}due {{ task.deadline[:16] | replace("T", " ") }}{% else %}no deadline{% endif %}
+              · {{ task.estimated_minutes }}m
+              · {{ task.energy_cost }} energy
+              · importance {{ task.importance }}
+            </span>
+          </div>
+          <form hx-post="/tasks/{{ task.id }}/complete" hx-target="#task-list" hx-swap="outerHTML">
+            <button type="submit" class="done-btn" title="Mark done">✓</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">No tasks yet. Add one below to get started.</p>
+  {% endif %}
+</div>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Now?</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>What Now?</h1>
+      <p class="tagline">You already know what matters. Here's the one thing to start.</p>
+    </header>
+
+    <section class="card">
+      <h2>Check in</h2>
+      <form hx-post="/checkin" hx-target="#action-slot" hx-swap="innerHTML">
+        <label>
+          Energy (1 = exhausted, 5 = wired)
+          <input type="range" name="energy" min="1" max="5" value="3"
+                 oninput="this.nextElementSibling.textContent = this.value">
+          <span class="range-value">3</span>
+        </label>
+
+        <label>
+          Minutes available
+          <input type="number" name="available_minutes" min="5" max="240" value="45" required>
+        </label>
+
+        <button type="submit">What should I do?</button>
+      </form>
+    </section>
+
+    <section id="action-slot"></section>
+
+    <section class="card">
+      <h2>Your tasks</h2>
+      {% include "_task_list.html" %}
+    </section>
+
+    <details class="card">
+      <summary><h2>Add a task</h2></summary>
+      <form hx-post="/tasks" hx-target="#task-list" hx-swap="outerHTML">
+        <label>
+          Title
+          <input type="text" name="title" required placeholder="e.g. DBMS assignment">
+        </label>
+
+        <label>
+          Deadline (optional)
+          <input type="datetime-local" name="deadline">
+        </label>
+
+        <label>
+          Estimated minutes
+          <input type="number" name="estimated_minutes" min="5" max="600" value="60" required>
+        </label>
+
+        <label>
+          Energy cost
+          <select name="energy_cost">
+            <option value="low">low</option>
+            <option value="medium" selected>medium</option>
+            <option value="high">high</option>
+          </select>
+        </label>
+
+        <label>
+          Importance (1–5)
+          <input type="number" name="importance" min="1" max="5" value="3" required>
+        </label>
+
+        <button type="submit">Add task</button>
+      </form>
+    </details>
+  </main>
+</body>
+</html>
