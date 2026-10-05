@@ -30,11 +30,10 @@ It returns **one action** — with a reason, a 2-minute first step, a timebox, a
 2. Pull the model: `ollama pull gemma3:4b`
 3. Start Ollama: `ollama serve`
 4. In this repo:
-- uv sync
-- uv run uvicorn src.what_now.main:app --reload
-5. Open http://127.0.0.1:8000
-- Swap models with an env var:
-- WHATNOW_MODEL=qwen2.5:7b uv run uvicorn src.what_now.main:app
+`uv sync
+uv run uvicorn src.what_now.main:app --reload`
+5. Open `http://127.0.0.1:8000`, Swap models with an env var
+`WHATNOW_MODEL=qwen2.5:7b uv run uvicorn src.what_now.main:app`
 
 ## Why local
 
